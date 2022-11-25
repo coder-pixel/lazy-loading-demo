@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-const PAGE_NUMBER = 3
+const Num = 6
 function App() {
   const [users, setUsers] = useState([])
-  const [page, setPage] = useState(PAGE_NUMBER)
+  const [profileTitle, setProfileTitle] = useState("john2")
+  const [page, setPage] = useState(Num)
   const [img, setImg] = useState()
 
   useEffect(() => {
@@ -12,7 +13,7 @@ function App() {
       .then(res => res.json())
       .then(data => setUsers(data.slice(0, page)))
 
-    fetch(`https://avatars.dicebear.com/api/male/john.svg`)
+    fetch(`https://avatars.dicebear.com/api/male/${profileTitle}.svg`)
       .then(data => setImg(data))
   }, [page])
 
@@ -30,21 +31,28 @@ function App() {
 
   return (
     <div className="App">
-      {users.map((user, index) => (
-        <div key={index} className='container'>
-          <div className="heading">
-            <div className="imgDiv">
-              <img src={img.url} alt="" />
+      <div className="mainText">
+        <h1>Welcome to lazy-loaded website</h1>
+        <h4>Scroll down to load more results!</h4>
+      </div>
+      
+      <div className="wrapper">
+        {users.map((user, index) => (
+          <div key={index} className='container'>
+            <div className="heading">
+              <div className="imgDiv">
+                <img src={img.url} alt="" />
+              </div>
+              <div className="textDiv">
+                <h4>{user.title}</h4>
+              </div>
             </div>
-            <div className="textDiv">
-              <h4>Title: {user.title}</h4>
+            <div className="body">
+              <h4>{user.body}</h4>
             </div>
           </div>
-          <div className="body">
-            <h4>Body: {user.body}</h4>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
