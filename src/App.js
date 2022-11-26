@@ -4,7 +4,7 @@ import './App.css';
 const Num = 6
 function App() {
   const [users, setUsers] = useState([])
-  const [profileTitle, setProfileTitle] = useState("john2")
+  const [profileTitle, setProfileTitle] = useState("john3")
   const [page, setPage] = useState(Num)
   const [img, setImg] = useState()
 
